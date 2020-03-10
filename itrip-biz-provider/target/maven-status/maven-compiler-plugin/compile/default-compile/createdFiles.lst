@@ -1,0 +1,5 @@
+cn\ekgc\itrip\service\impl\UserServiceImpl.class
+cn\ekgc\itrip\service\UserService.class
+cn\ekgc\itrip\dao\UserDao.class
+cn\ekgc\itrip\BizProviderStarter.class
+cn\ekgc\itrip\transport\UserTransportImpl.class

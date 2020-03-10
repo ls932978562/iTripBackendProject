@@ -1,0 +1,13 @@
+cn\ekgc\itrip\pojo\vo\UserVo.class
+cn\ekgc\itrip\base\enums\UserRegistryTypeEnum.class
+cn\ekgc\itrip\transport\UserTransport.class
+cn\ekgc\itrip\util\constant\SmsConstant.class
+cn\ekgc\itrip\util\CheckFormatUtil.class
+cn\ekgc\itrip\util\CreateActivatedCodeUtil.class
+cn\ekgc\itrip\util\MD5Util.class
+cn\ekgc\itrip\pojo\entity\User.class
+cn\ekgc\itrip\base\pojo\vo\ResponseDto.class
+cn\ekgc\itrip\util\MailSenderUtil.class
+cn\ekgc\itrip\base\controller\BaseController.class
+cn\ekgc\itrip\util\SmsSenderUtil.class
+cn\ekgc\itrip\base\enums\UserActivatedEnum.class
