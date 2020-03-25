@@ -1,7 +1,9 @@
 package cn.ekgc.itrip.service.impl;
 
 import cn.ekgc.itrip.dao.UserDao;
+import cn.ekgc.itrip.pojo.entity.ItripUserLinkUser;
 import cn.ekgc.itrip.pojo.entity.User;
+import cn.ekgc.itrip.pojo.vo.ItripAddUserLinkUserVO;
 import cn.ekgc.itrip.service.UserService;
 import cn.ekgc.itrip.util.CheckFormatUtil;
 import cn.ekgc.itrip.util.CreateActivatedCodeUtil;
@@ -10,9 +12,9 @@ import cn.ekgc.itrip.util.SmsSenderUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -22,6 +24,7 @@ import java.util.concurrent.TimeUnit;
  * @since 1.0.0
  */
 @Service("userService")
+@Transactional
 public class UserServiceImpl implements UserService {
 
 	@Autowired
@@ -64,7 +67,7 @@ public class UserServiceImpl implements UserService {
 			//判断用户进行的注册方式是邮箱还是手机号码
 			if(CheckFormatUtil.checkEmailFormat(user.getUserCode())){
 				//是邮箱注册,发送给邮箱激活码
-				return mailSenderUtil.sendNomalTextEmail(user.getUserCode(), activeCode);
+				return mailSenderUtil.sendActivatedCodeMail(user.getUserCode(), activeCode);
 			}else if(CheckFormatUtil.checkPhoneFormat(user.getUserCode())){
 				//发送手机验证码
 				return smsSenderUtil.smsSender(user.getUserCode(), activeCode);
@@ -79,7 +82,7 @@ public class UserServiceImpl implements UserService {
 	 * @return
 	 * @throws Exception
 	 */
-	public boolean userActivate(User user) {
+	public boolean userActivate(User user) throws Exception{
 		int count = userDao.updateUserActivateState(user);
 		if(count > 0){
 			return true;
@@ -95,5 +98,57 @@ public class UserServiceImpl implements UserService {
 	 */
 	public String getUserActiveCode(String userCode) throws Exception {
 		return redisTemplate.opsForValue().get(userCode);
+	}
+
+	/**
+	 * <b>查询常用联系人</b>
+	 * @param linkUser
+	 * @return
+	 * @throws Exception
+	 */
+	public List<ItripUserLinkUser> getLinkUser(ItripUserLinkUser linkUser) throws Exception {
+		List<ItripUserLinkUser> linkUserList = new ArrayList<ItripUserLinkUser>();
+		linkUserList = userDao.findUserLinkUser(linkUser);
+		if(linkUserList != null){
+			return linkUserList;
+		}
+		return new ArrayList<ItripUserLinkUser>();
+	}
+
+	/**
+	 * <b>添加常用联系人</b>
+	 * @param itripUserLinkUser
+	 * @return
+	 * @throws Exception
+	 */
+	public int adduserlinkuser(ItripUserLinkUser itripUserLinkUser) throws Exception {
+		return userDao.insertUserLinkUser(itripUserLinkUser);
+	}
+
+
+
+	/**
+	 * <b>修改常用联系人信息</b>
+	 * @return
+	 * @throws Exception
+	 */
+	public int updateUserLinkUser(ItripAddUserLinkUserVO addUserLinkUserVO) throws Exception {
+
+		int count = 0;
+		count = userDao.updateLinkUserInFo(addUserLinkUserVO);
+		return count;
+	}
+
+	/**
+	 * <b>删除常用联系人</b>
+	 * @return
+	 * @throws Exception
+	 */
+	public int delUserlinkUser(Integer linkUserId) throws Exception {
+		//封装参数
+		Map<String,Object> map = new HashMap<String, Object>();
+		map.put("id", linkUserId);
+
+		return userDao.delUserlinkUser(map);
 	}
 }

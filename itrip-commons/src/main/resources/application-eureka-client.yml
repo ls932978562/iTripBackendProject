@@ -17,3 +17,7 @@ hystrix:
 ribbon:
   ReadTimeout: 8000
   ConnectTimeout: 8000
+###配置spring允许调用同一个模块的调用者不在同一个接口中
+spring:
+  main:
+    allow-bean-definition-overriding: true

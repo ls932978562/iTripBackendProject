@@ -1,0 +1,7 @@
+###配置端口号
+server:
+  port: 8884
+### 配置项目应用名
+spring:
+  application:
+    name: itrip-search-consumer

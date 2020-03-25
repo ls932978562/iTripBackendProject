@@ -1,0 +1,4 @@
+###配置项目启动读取的配置文件后缀
+spring:
+  profiles:
+    active: dev, eureka-client,mail,trade

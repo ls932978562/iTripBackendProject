@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.ekgc.itrip.dao.HotelDao">
+	<select id="findHotelListByQuery" parameterType="Hotel" resultMap="hotelMap">
+		SELECT
+			ih.id,
+			ih.hotelName,
+			ih.countryId,
+			ih.provinceId,
+			ih.cityId,
+			ih.address,
+			ih.details,
+			ih.facilities,
+			ih.hotelPolicy,
+			ih.hotelType,
+			ih.hotelLevel,
+			ih.isGroupPurchase,
+			ih.redundantCityName,
+			ih.redundantProvinceName,
+			ih.redundantCountryName,
+			ih.redundantHotelStore,
+			ih.creationDate,
+			ih.createdBy,
+			ih.modifyDate,
+			ih.modifiedBy
+		FROM
+			itrip_hotel ih
+		<where>
+			<trim suffixOverrides="and">
+				<if test="id != null">id=#{id} and </if>
+				<if test="hotelName != null">hotelName=#{hotelName} and </if>
+				<if test="countryId != null">countryId=#{countryId} and </if>
+				<if test="provinceId != null">provinceId=#{provinceId} and </if>
+				<if test="cityId != null">cityId=#{cityId} and </if>
+				<if test="hotelType != null">hotelType=#{hotelType} and </if>
+				<if test="hotelLevel != null">hotelLevel=#{hotelLevel} and </if>
+				<if test="isGroupPurchase != null">isGroupPurchase=#{isGroupPurchase} and </if>
+				<if test="isGroupPurchase != null">isGroupPurchase=#{isGroupPurchase} and </if>
+			</trim>
+		</where>
+
+
+	</select>
+	<resultMap id="hotelMap" type="Hotel">
+		<id property="id" javaType="java.lang.Long" column="id"/>
+		<id property="hotelName" javaType="java.lang.String" column="hotelName"/>
+		<id property="countryId" javaType="java.lang.Long" column="countryId"/>
+		<id property="provinceId" javaType="java.lang.Long" column="provinceId"/>
+		<id property="cityId" javaType="java.lang.Long" column="cityId"/>
+		<id property="address" javaType="java.lang.String" column="address"/>
+		<id property="details" javaType="java.lang.String" column="details"/>
+		<id property="facilities" javaType="java.lang.String" column="facilities"/>
+		<id property="hotelPolicy" javaType="java.lang.String" column="hotelPolicy"/>
+		<id property="hotelType" javaType="java.lang.Integer" column="hotelType"/>
+		<id property="hotelLevel" javaType="java.lang.Integer" column="hotelLevel"/>
+		<id property="isGroupPurchase" javaType="java.lang.Integer" column="isGroupPurchase"/>
+		<id property="redundantCityName" javaType="java.lang.String" column="redundantCityName"/>
+		<id property="redundantProvinceName" javaType="java.lang.String" column="redundantProvinceName"/>
+		<id property="redundantCountryName" javaType="java.lang.String" column="redundantCountryName"/>
+		<id property="redundantHotelStore" javaType="java.lang.Integer" column="redundantHotelStore"/>
+		<result property="creationDate" javaType="java.util.Date" column="creationDate"/>
+		<result property="createdBy" javaType="java.lang.Long" column="createdBy"/>
+		<result property="modifyDate" javaType="java.util.Date" column="modifyDate"/>
+		<result property="modifiedBy" javaType="java.lang.Long" column="modifiedBy"/>
+
+	</resultMap>
+</mapper>

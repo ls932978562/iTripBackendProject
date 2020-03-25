@@ -1,6 +1,8 @@
 package cn.ekgc.itrip.transport;
 
+import cn.ekgc.itrip.pojo.entity.ItripUserLinkUser;
 import cn.ekgc.itrip.pojo.entity.User;
+import cn.ekgc.itrip.pojo.vo.ItripAddUserLinkUserVO;
 import cn.ekgc.itrip.service.UserService;
 import org.springframework.web.bind.annotation.*;
 
@@ -63,5 +65,47 @@ public class UserTransportImpl implements UserTransport {
 	@PostMapping("/activeCode")
 	public String getUserActiveCode(@RequestParam String userCode) throws Exception {
 		return userService.getUserActiveCode(userCode);
+	}
+
+	/**
+	 * <b>查询常用联系人</b>
+	 * @param linkUser
+	 * @return
+	 * @throws Exception
+	 */
+	@PostMapping("/linkUser")
+	public List<ItripUserLinkUser> getLinkUser(@RequestBody ItripUserLinkUser linkUser) throws Exception {
+		return userService.getLinkUser(linkUser);
+	}
+
+	/**
+	 * <b>添加常用联系人</b>
+	 * @param itripUserLinkUser
+	 * @return
+	 * @throws Exception
+	 */
+	@PostMapping("/addLinkUser")
+	public int adduserlinkuser(@RequestBody ItripUserLinkUser itripUserLinkUser) throws Exception {
+		return userService.adduserlinkuser(itripUserLinkUser);
+	}
+
+	/**
+	 * <b>修改常用联系人信息</b>
+	 * @return
+	 * @throws Exception
+	 */
+	@PostMapping("/updateLinkUser")
+	public int updateUserLinkUser(@RequestBody ItripAddUserLinkUserVO addUserLinkUserVO) throws Exception {
+		return userService.updateUserLinkUser(addUserLinkUserVO);
+	}
+
+	/**
+	 * <b>删除常用联系人</b>
+	 * @return
+	 * @throws Exception
+	 */
+	@GetMapping("/deluserlinkuser")
+	public int delUserlinkUser(@RequestParam Integer linkUserId) throws Exception {
+		return userService.delUserlinkUser(linkUserId);
 	}
 }

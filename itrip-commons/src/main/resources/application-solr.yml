@@ -1,0 +1,5 @@
+spring:
+  data:
+    ###制定solr服务所在地址，并指定到对应的core位置
+    solr:
+      host: http://localhost:8080/solr/hotel

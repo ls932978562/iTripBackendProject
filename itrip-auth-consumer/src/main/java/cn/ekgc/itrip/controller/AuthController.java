@@ -9,9 +9,12 @@ import cn.ekgc.itrip.pojo.vo.UserVo;
 import cn.ekgc.itrip.transport.UserTransport;
 import cn.ekgc.itrip.util.CheckFormatUtil;
 import cn.ekgc.itrip.util.MD5Util;
+import cn.ekgc.itrip.util.JWTUtil;
+import cn.ekgc.itrip.util.constant.SystemConstant;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.service.ApiListing;
 
 import java.util.List;
 
@@ -63,20 +66,26 @@ public class AuthController extends BaseController {
 		//进行校验用户输入的格式是否正确
 		if(CheckFormatUtil.checkEmailFormat(userVo.getUserCode())
 			&& userVo.getUserPassword() != null && !"".equals(userVo.getUserPassword())){
-			//将用户密码进行加密
-			userVo.setUserPassword(MD5Util.encrypt(userVo.getUserPassword()));
-			//将UserVo的对象转换成User对象,调用spring提供的工具类进行转换
-			User user = new User();
-			BeanUtils.copyProperties(userVo, user);
-			//注册该方法属于自主注册，调用枚举类型
-			user.setUserType(UserRegistryTypeEnum.USER_TYPE_REG.getCode());
-			//注册时状态设置为未激活，调用枚举类型
-			user.setActivated(UserActivatedEnum.USER_ACTIVATED_NO.getCode());
-			//拿到用户信息进行注册
-			boolean flag = userTransport.addUserForRegistry(user);
-			if(flag){
-				//成功注册用户
-				return ResponseDto.success();
+			// 进行唯一性校验
+			User query = new User();
+			query.setUserCode(userVo.getUserCode());
+			List<User> userList = userTransport.getUserByQuery(query);
+			if(userList == null || userList.size() == 0){
+				//将用户密码进行加密
+				userVo.setUserPassword(MD5Util.encrypt(userVo.getUserPassword()));
+				//将UserVo的对象转换成User对象,调用spring提供的工具类进行转换
+				User user = new User();
+				BeanUtils.copyProperties(userVo, user);
+				//注册该方法属于自主注册，调用枚举类型
+				user.setUserType(UserRegistryTypeEnum.USER_TYPE_REG.getCode());
+				//注册时状态设置为未激活，调用枚举类型
+				user.setActivated(UserActivatedEnum.USER_ACTIVATED_NO.getCode());
+				//拿到用户信息进行注册
+				boolean flag = userTransport.addUserForRegistry(user);
+				if(flag){
+					//成功注册用户
+					return ResponseDto.success();
+				}
 			}
 		}
 		return ResponseDto.failure("注册失败！");
@@ -184,28 +193,51 @@ public class AuthController extends BaseController {
 	public ResponseDto<Object> userLogin(String name,String password)throws Exception{
 		if(name != null && !"".equals(name.trim()) && password != null && !"".equals(password.trim())){
 			//将用户输入的信息封装成一个User对象
-			User query = new User(name, MD5Util.encrypt(password));
+			User query = new User();
+			query.setUserCode(name);
 			//根据用户信息进行查询用户
 			List<User> userList = userTransport.getUserByQuery(query);
 			//根据用户的账号和密码只可能查到最多一个对象,并且状态是激活的可用的,并且密码正确
-			if(userList != null && (userList.size() > 0)
-					&& userList.get(0).getActivated() == UserActivatedEnum.USER_ACTIVATED_YES.getCode()){
-				return ResponseDto.success("登陆成功");
+			if(userList != null && (userList.size() > 0)){
+				if(userList.get(0).getActivated() == UserActivatedEnum.USER_ACTIVATED_YES.getCode()){
+					if((userList.get(0).getUserPassword()).equals(MD5Util.encrypt(password))){
+						//使用当前用户id生成token信息
+						String token = JWTUtil.createToken(userList.get(0).getId());
+						//将token随响应交给浏览器
+						response.setHeader("Authorization", token);
+						return ResponseDto.success(token);
+					}else {
+						return ResponseDto.failure("用户密码错误！！！");
+					}
+				}else {
+					return ResponseDto.failure("用户状态未激活");
+				}
+			}else {
+				return ResponseDto.failure("用户名或密码错误，请重新输入！");
 			}
-			return ResponseDto.failure("用户名或密码错误或账户被禁用，请重新输入！");
 		}
-		return ResponseDto.failure("请输入正确的用户名和密码");
+			return ResponseDto.failure("请输入用户名和密码");
 	}
+
+//
+//	/**
+//	 * <b>用户注销</b>
+//	 * @param token
+//	 * @return
+//	 * @throws Exception
+//	 */
+//	@GetMapping("/logout")
+//	public ResponseDto<Object> logout(@RequestParam String token)throws Exception{
+//		String head = request.getHeader("Authorization");
+//		System.out.println(head + "***********************************************");
+//		if(head.equals(token)){
+//
+//			response.setHeader("Authorization",null);
+//			return ResponseDto.success("注销成功");
+//		}
+//		return ResponseDto.failure("注销失败");
+//	}
 }
-
-
-
-
-
-
-
-
-
 
 
 

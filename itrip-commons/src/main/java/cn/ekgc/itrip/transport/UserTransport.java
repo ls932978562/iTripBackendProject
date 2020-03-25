@@ -1,13 +1,15 @@
 package cn.ekgc.itrip.transport;
 
+import cn.ekgc.itrip.pojo.entity.ItripUserLinkUser;
 import cn.ekgc.itrip.pojo.entity.User;
+import cn.ekgc.itrip.pojo.vo.ItripAddUserLinkUserVO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 /**
- * <b>爱旅行-用户模块传输层接口</b>
+ * <b>爱旅行-用户信息传输层接口</b>
  * @author ls
  * @version 1.0.0
  * @since 1.0.0
@@ -51,4 +53,41 @@ public interface UserTransport {
 	 */
 	@PostMapping("/activeCode")
 	String getUserActiveCode(@RequestParam String userCode)throws Exception;
+
+	/**
+	 * <b>查询常用联系人</b>
+	 * @param linkUser
+	 * @return
+	 * @throws Exception
+	 */
+	@PostMapping("/linkUser")
+	List<ItripUserLinkUser> getLinkUser(@RequestBody ItripUserLinkUser linkUser)throws Exception;
+
+
+	/**
+	 * <b>添加常用联系人</b>
+	 * @param itripUserLinkUser
+	 * @return
+	 * @throws Exception
+	 */
+	@PostMapping("/addLinkUser")
+	int adduserlinkuser(@RequestBody ItripUserLinkUser itripUserLinkUser)throws Exception;
+
+
+	/**
+	 * <b>修改常用联系人信息</b>
+	 * @return
+	 * @throws Exception
+	 */
+	@PostMapping("/updateLinkUser")
+	int updateUserLinkUser(@RequestBody ItripAddUserLinkUserVO addUserLinkUserVO)throws Exception;
+
+
+	/**
+	 * <b>删除常用联系人</b>
+	 * @return
+	 * @throws Exception
+	 */
+	@GetMapping("/deluserlinkuser")
+	int delUserlinkUser(@RequestParam Integer linkUserId)throws Exception;
 }

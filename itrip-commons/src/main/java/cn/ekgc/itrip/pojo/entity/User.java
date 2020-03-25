@@ -1,5 +1,7 @@
 package cn.ekgc.itrip.pojo.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -22,18 +24,13 @@ public class User implements Serializable {
 	private String QQ;                      //QQ号码
 	private String weibo;                   //微博账号
 	private String baidu;                   //百度账号
-	private Integer activated;                  //是否激活
+	private int activated;                  //是否激活
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
 	private Date creationDate;
 	private Long createdBy;
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
 	private Date modifyDate;
 	private Long modifiedBy;
-
-	public User() {}
-
-	public User(String userCode, String userPassword) {
-		this.userCode = userCode;
-		this.userPassword = userPassword;
-	}
 
 	public Long getId() {
 		return id;
@@ -115,11 +112,11 @@ public class User implements Serializable {
 		this.baidu = baidu;
 	}
 
-	public Integer getActivated() {
+	public int getActivated() {
 		return activated;
 	}
 
-	public void setActivated(Integer activated) {
+	public void setActivated(int activated) {
 		this.activated = activated;
 	}
 
