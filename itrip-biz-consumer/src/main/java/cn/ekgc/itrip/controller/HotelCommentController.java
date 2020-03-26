@@ -156,6 +156,12 @@ public class HotelCommentController extends BaseController {
 		return ResponseDto.success(hotel);
 	}
 
+
+	/**
+	 * <b>获取旅行类型</b>
+	 * @return
+	 * @throws Exception
+	 */
 	@GetMapping("/gettraveltype")
 	public ResponseDto<Object> gettraveltype()throws Exception{
 		//查询出游类型在itrip_label_dic中查父级是107的

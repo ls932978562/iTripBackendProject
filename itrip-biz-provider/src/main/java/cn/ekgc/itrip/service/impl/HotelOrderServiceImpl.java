@@ -14,6 +14,7 @@ import cn.ekgc.itrip.service.HotelroomService;
 import cn.ekgc.itrip.service.LabelDicService;
 import cn.ekgc.itrip.transport.HotelroomTransport;
 import cn.ekgc.itrip.util.HotelOrderNoCreater;
+import cn.ekgc.itrip.util.constant.SystemConstant;
 import com.alibaba.druid.pool.vendor.SybaseExceptionSorter;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -21,6 +22,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.w3c.dom.html.HTMLObjectElement;
 
 import javax.management.relation.InvalidRelationTypeException;
 import javax.servlet.http.Cookie;
@@ -220,7 +222,6 @@ public class HotelOrderServiceImpl implements HotelOrderService {
 	 */
 	public Page<HotelOrder> getPersonalOrderList(ItripSearchOrderVO itripSearchOrderVO) throws Exception {
 		Page<HotelOrder> page = new Page<HotelOrder>();
-		List<HotelOrder> hotelOrderList = new ArrayList<HotelOrder>();
 
 		if(itripSearchOrderVO.getOrderType() == -1){
 			itripSearchOrderVO.setOrderType(null);
@@ -229,8 +230,17 @@ public class HotelOrderServiceImpl implements HotelOrderService {
 			itripSearchOrderVO.setOrderStatus(null);
 		}
 
+		//前端数据为null或者为空字符串都设置成null
+		if(itripSearchOrderVO.getOrderNo() == null || itripSearchOrderVO.getOrderNo().length() == 0){
+			itripSearchOrderVO.setOrderNo(null);
+		}
+		if(itripSearchOrderVO.getLinkUserName() == null || itripSearchOrderVO.getLinkUserName().length() == 0){
+			itripSearchOrderVO.setLinkUserName(null);
+		}
+
 		//封装查询参数对象
 		HotelOrder hotelOrder = new HotelOrder();
+
 		hotelOrder.setUserId(itripSearchOrderVO.getUserId());
 		hotelOrder.setOrderNo(itripSearchOrderVO.getOrderNo());
 		hotelOrder.setLinkUserName(itripSearchOrderVO.getLinkUserName());
@@ -243,23 +253,21 @@ public class HotelOrderServiceImpl implements HotelOrderService {
 		if(itripSearchOrderVO.getPageNo() == null){
 			itripSearchOrderVO.setPageNo(1);
 		}
-		PageHelper.startPage(itripSearchOrderVO.getPageNo(), itripSearchOrderVO.getPageSize());
 
 		//进行查询
+		PageHelper.startPage(itripSearchOrderVO.getPageNo(), itripSearchOrderVO.getPageSize());
+		List<HotelOrder> hotelOrderList = hotelOrderDao.findHotelOrder(hotelOrder);
 
-		hotelOrderList = hotelOrderDao.findHotelOrder(hotelOrder);
-		if(hotelOrderList != null && hotelOrderList.size() > 0){
-			PageInfo<HotelOrder> pageInfo = new PageInfo<HotelOrder>(hotelOrderList);
+		PageInfo<HotelOrder> pageInfo = new PageInfo<HotelOrder>(hotelOrderList);
 
-			page.setCurPage(itripSearchOrderVO.getPageNo());
-			page.setPageCount(pageInfo.getPages());
-			page.setTotal((int)pageInfo.getTotal());
-			page.setRows(hotelOrderList);
-			page.setBeginPos(pageInfo.getStartRow());
+		page.setCurPage(itripSearchOrderVO.getPageNo());
+		page.setPageCount(pageInfo.getPages());
+		page.setTotal((int)pageInfo.getTotal());
+		page.setRows(hotelOrderList);
+		page.setBeginPos(pageInfo.getStartRow());
 
-			return page;
-		}
-		return new Page<HotelOrder>();
+		return page;
+
 	}
 
 

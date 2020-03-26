@@ -165,9 +165,21 @@ public class HotelOrderController extends BaseController {
 	 */
 	@GetMapping("/getpersonalorderroominfo/{orderId}")
 	public ResponseDto<Object> getpersonalorderroominfo(@PathVariable("orderId") Long orderId)throws Exception{
+//		//根据订单Id查询订单信息
+//		ItripPersonalOrderRoomVO personalOrderRoomVO = hotelOrderTransport.getpersonalorderroominfo(orderId);
+//		return ResponseDto.success(personalOrderRoomVO);
+
+		ItripPersonalHotelOrderVO personalHotelOrderVO = new ItripPersonalHotelOrderVO();
 		//根据订单Id查询订单信息
-		ItripPersonalOrderRoomVO personalOrderRoomVO = hotelOrderTransport.getpersonalorderroominfo(orderId);
-		return ResponseDto.success(personalOrderRoomVO);
+		HotelOrder hotelOrder = new HotelOrder();
+		hotelOrder.setId(orderId);
+		//进行查询
+		List<HotelOrder> orderList = hotelOrderTransport.getHotelOrderByNo(hotelOrder);
+
+		return  ResponseDto.success(orderList.get(0));
+
+
+
 
 	}
 
@@ -237,6 +249,7 @@ public class HotelOrderController extends BaseController {
 		user.setUserCode(userCode);
 		List<User> userList = userTransport.getUserByQuery(user);
 		itripSearchOrderVO.setUserId(userList.get(0).getId());
+
 
 		Page<HotelOrder> page = hotelOrderTransport.getPersonalOrderList(itripSearchOrderVO);
 		return ResponseDto.success(page);

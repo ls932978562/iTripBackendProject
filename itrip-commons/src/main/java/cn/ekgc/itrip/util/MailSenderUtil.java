@@ -58,6 +58,14 @@ public class MailSenderUtil {
 		return false;
 	}
 
+
+	/**
+	 * <b>发送普通文本邮件</b>
+	 * @param email
+	 * @param activeCode
+	 * @return
+	 * @throws Exception
+	 */
 	public  boolean sendNomalTextEmail(String email,String activeCode)throws Exception{
 		try {
 			SimpleMailMessage mailMessage = new SimpleMailMessage();

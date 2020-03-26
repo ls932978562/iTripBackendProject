@@ -18,60 +18,60 @@
 	</select>
 
 	<insert id="saveHotelOrder" parameterType="HotelOrder">
-		insert into itrip_hotel_order(
-			<trim suffixOverrides=",">
-				<if test="id != null">id, </if>
-				<if test="userId != null">userId, </if>
-				<if test="orderType != null">orderType, </if>
-				<if test="orderNo != null">orderNo, </if>
-				<if test="tradeNo != null">tradeNo, </if>
-				<if test="hotelId != null">hotelId, </if>
-				<if test="hotelName != null">hotelName, </if>
-				<if test="roomId != null">roomId, </if>
-				<if test="count != null">count, </if>
-				<if test="bookingDays != null">bookingDays, </if>
-				<if test="checkInDate != null">checkInDate, </if>
-				<if test="checkOutDate != null">checkOutDate, </if>
-				<if test="orderStatus != null">orderStatus, </if>
-				<if test="payAmount != null">payAmount, </if>
-				<if test="payType != null">payType, </if>
-				<if test="noticePhone != null">noticePhone, </if>
-				<if test="noticeEmail != null">noticeEmail, </if>
-				<if test="specialRequirement != null">specialRequirement, </if>
-				<if test="isNeedInvoice != null">isNeedInvoice, </if>
-				<if test="invoiceType != null">invoiceType, </if>
-				<if test="invoiceHead != null">invoiceHead, </if>
-				<if test="linkUserName != null">linkUserName, </if>
-				<if test="bookType != null">bookType, </if>
-			</trim>
-			) values(
-			<trim suffixOverrides=",">
-				<if test="id != null">#{id}, </if>
-				<if test="userId != null">#{userId}, </if>
-				<if test="orderType != null">#{orderType}, </if>
-				<if test="orderNo != null">#{orderNo}, </if>
-				<if test="tradeNo != null">#{tradeNo}, </if>
-				<if test="hotelId != null">#{hotelId}, </if>
-				<if test="hotelName != null">#{hotelName}, </if>
-				<if test="roomId != null">#{roomId}, </if>
-				<if test="count != null">#{count}, </if>
-				<if test="bookingDays != null">#{bookingDays}, </if>
-				<if test="checkInDate != null">#{checkInDate}, </if>
-				<if test="checkOutDate != null">#{checkOutDate}, </if>
-				<if test="orderStatus != null">#{orderStatus}, </if>
-				<if test="payAmount != null">#{payAmount}, </if>
-				<if test="payType != null">#{payType}, </if>
-				<if test="noticePhone != null">#{noticePhone}, </if>
-				<if test="noticeEmail != null">#{noticeEmail}, </if>
-				<if test="specialRequirement != null">#{specialRequirement}, </if>
-				<if test="isNeedInvoice != null">#{isNeedInvoice}, </if>
-				<if test="invoiceType != null">#{invoiceType}, </if>
-				<if test="invoiceHead != null">#{invoiceHead}, </if>
-				<if test="linkUserName != null">#{linkUserName}, </if>
-				<if test="bookType != null">#{bookType}, </if>
-			</trim>
-		)
-	</insert>
+	insert into itrip_hotel_order(
+	<trim suffixOverrides=",">
+		<if test="id != null">id, </if>
+		<if test="userId != null">userId, </if>
+		<if test="orderType != null">orderType, </if>
+		<if test="orderNo != null">orderNo, </if>
+		<if test="tradeNo != null">tradeNo, </if>
+		<if test="hotelId != null">hotelId, </if>
+		<if test="hotelName != null">hotelName, </if>
+		<if test="roomId != null">roomId, </if>
+		<if test="count != null">count, </if>
+		<if test="bookingDays != null">bookingDays, </if>
+		<if test="checkInDate != null">checkInDate, </if>
+		<if test="checkOutDate != null">checkOutDate, </if>
+		<if test="orderStatus != null">orderStatus, </if>
+		<if test="payAmount != null">payAmount, </if>
+		<if test="payType != null">payType, </if>
+		<if test="noticePhone != null">noticePhone, </if>
+		<if test="noticeEmail != null">noticeEmail, </if>
+		<if test="specialRequirement != null">specialRequirement, </if>
+		<if test="isNeedInvoice != null">isNeedInvoice, </if>
+		<if test="invoiceType != null">invoiceType, </if>
+		<if test="invoiceHead != null">invoiceHead, </if>
+		<if test="linkUserName != null">linkUserName, </if>
+		<if test="bookType != null">bookType, </if>
+	</trim>
+	) values(
+	<trim suffixOverrides=",">
+		<if test="id != null">#{id}, </if>
+		<if test="userId != null">#{userId}, </if>
+		<if test="orderType != null">#{orderType}, </if>
+		<if test="orderNo != null">#{orderNo}, </if>
+		<if test="tradeNo != null">#{tradeNo}, </if>
+		<if test="hotelId != null">#{hotelId}, </if>
+		<if test="hotelName != null">#{hotelName}, </if>
+		<if test="roomId != null">#{roomId}, </if>
+		<if test="count != null">#{count}, </if>
+		<if test="bookingDays != null">#{bookingDays}, </if>
+		<if test="checkInDate != null">#{checkInDate}, </if>
+		<if test="checkOutDate != null">#{checkOutDate}, </if>
+		<if test="orderStatus != null">#{orderStatus}, </if>
+		<if test="payAmount != null">#{payAmount}, </if>
+		<if test="payType != null">#{payType}, </if>
+		<if test="noticePhone != null">#{noticePhone}, </if>
+		<if test="noticeEmail != null">#{noticeEmail}, </if>
+		<if test="specialRequirement != null">#{specialRequirement}, </if>
+		<if test="isNeedInvoice != null">#{isNeedInvoice}, </if>
+		<if test="invoiceType != null">#{invoiceType}, </if>
+		<if test="invoiceHead != null">#{invoiceHead}, </if>
+		<if test="linkUserName != null">#{linkUserName}, </if>
+		<if test="bookType != null">#{bookType}, </if>
+	</trim>
+	)
+</insert>
 
 	<select id="findHotelOrder" parameterType="HotelOrder" resultMap="hotelOrderMap">
 		select
@@ -107,14 +107,14 @@
 		<where>
 			<trim suffixOverrides="and">
 				<if test="id != null">iho.id=#{id} and </if>
-				<if test="orderNo != null">iho.orderNo=#{orderNo} and </if>
-				<if test="tradeNo != null">iho.tradeNo=#{tradeNo} and </if>
 				<if test="userId != null">iho.userId=#{userId} and </if>
 				<if test="orderType != null">iho.orderType=#{orderType} and </if>
-				<if test="orderStatus != null">iho.orderStatus=#{orderStatus} and </if>
+				<if test="orderNo != null">iho.orderNo=#{orderNo} and </if>
+				<if test="tradeNo != null">iho.tradeNo=#{tradeNo} and </if>
 				<if test="checkInDate != null">iho.checkInDate=#{checkInDate} and </if>
 				<if test="checkOutDate != null">iho.checkOutDate=#{checkOutDate} and </if>
-				<if test="linkUserName != null">iho.linkUserName=#{linkUserName} and </if>
+				<if test="orderStatus != null">iho.orderStatus=#{orderStatus} and </if>
+				<if test="linkUserName != null">iho.linkUserName like concat('%',#{linkUserName},'%') and </if>
 			</trim>
 		</where>
 	</select>

@@ -219,24 +219,7 @@ public class AuthController extends BaseController {
 			return ResponseDto.failure("请输入用户名和密码");
 	}
 
-//
-//	/**
-//	 * <b>用户注销</b>
-//	 * @param token
-//	 * @return
-//	 * @throws Exception
-//	 */
-//	@GetMapping("/logout")
-//	public ResponseDto<Object> logout(@RequestParam String token)throws Exception{
-//		String head = request.getHeader("Authorization");
-//		System.out.println(head + "***********************************************");
-//		if(head.equals(token)){
-//
-//			response.setHeader("Authorization",null);
-//			return ResponseDto.success("注销成功");
-//		}
-//		return ResponseDto.failure("注销失败");
-//	}
+
 }
 
 

@@ -13,6 +13,7 @@ cn\ekgc\itrip\base\pojo\vo\ResponseDto.class
 cn\ekgc\itrip\base\enums\UserRegistryTypeEnum.class
 cn\ekgc\itrip\pojo\vo\ListCommentVO.class
 cn\ekgc\itrip\transport\UserTransport.class
+cn\ekgc\itrip\pojo\vo\ItripAddCommentVO.class
 cn\ekgc\itrip\transport\HotelroomTransport.class
 cn\ekgc\itrip\util\CheckFormatUtil.class
 cn\ekgc\itrip\pojo\entity\Hotelroom.class
@@ -22,12 +23,14 @@ cn\ekgc\itrip\base\pojo\vo\Page.class
 cn\ekgc\itrip\pojo\vo\SearchHotelRoomVO.class
 cn\ekgc\itrip\pojo\vo\ItripPersonalOrderRoomVO.class
 cn\ekgc\itrip\pojo\vo\HotelVo.class
+cn\ekgc\itrip\util\TimeFormatUtil.class
 cn\ekgc\itrip\util\MailSenderUtil.class
 cn\ekgc\itrip\base\enums\UserActivatedEnum.class
 cn\ekgc\itrip\pojo\vo\RoomStoreVO.class
 cn\ekgc\itrip\pojo\vo\ItripOrderLinkUserVo.class
 cn\ekgc\itrip\util\constant\SystemConstant.class
 cn\ekgc\itrip\pojo\entity\Hotel.class
+cn\ekgc\itrip\pojo\vo\ModifyUserLinkUserVO.class
 cn\ekgc\itrip\util\CreateActivatedCodeUtil.class
 cn\ekgc\itrip\base\enums\OrderStatusEnum.class
 cn\ekgc\itrip\pojo\entity\HotelComment.class
@@ -46,6 +49,7 @@ cn\ekgc\itrip\pojo\vo\ModifyHotelOrderVO.class
 cn\ekgc\itrip\transport\HotelCommentTransport.class
 cn\ekgc\itrip\base\enums\AreaHotEnum.class
 cn\ekgc\itrip\pojo\entity\ItripUserLinkUser.class
+cn\ekgc\itrip\pojo\vo\ItripSearchOrderVO.class
 cn\ekgc\itrip\transport\LabelDicTransport.class
 cn\ekgc\itrip\pojo\entity\LabelDic.class
 cn\ekgc\itrip\util\SmsSenderUtil.class
