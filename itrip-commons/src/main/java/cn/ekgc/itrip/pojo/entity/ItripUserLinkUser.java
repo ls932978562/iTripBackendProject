@@ -1,6 +1,8 @@
 package cn.ekgc.itrip.pojo.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -10,13 +12,20 @@ import java.util.Date;
  * @version 1.0.0
  * @since 1.0.0
  */
+@ApiModel(value = "常用联系人ItripUserLinkUser",description = "常用联系人")
 public class ItripUserLinkUser implements Serializable {
 	private static final long serialVersionUID = 1L;
+	@ApiModelProperty(value = "主键")
 	private Long id;
+	@ApiModelProperty(value = "联系人姓名")
 	private String linkUserName;
+	@ApiModelProperty(value = "证件类型")
 	private Integer linkIdCardType;
+	@ApiModelProperty(value = "证件号")
 	private String linkIdCard;
+	@ApiModelProperty(value = "电话")
 	private String linkPhone;
+	@ApiModelProperty(value = "用户Id")
 	private Long userId;
 	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
 	private Date creationDate;

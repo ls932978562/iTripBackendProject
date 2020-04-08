@@ -1,6 +1,8 @@
 package cn.ekgc.itrip.pojo.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -11,19 +13,31 @@ import java.util.Date;
  * @version 1.0.0
  * @since 1.0.0
  */
+@ApiModel(value = "用户信息实体类 User",description = "用户信息")
 public class User implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	@ApiModelProperty(value = "用户主键")
 	private Long id;                        //用户主键
+	@ApiModelProperty(value = "用户注册账号邮箱或手机号")
 	private String userCode;                //注册邮箱或手机号
+	@ApiModelProperty(value = "用户密码")
 	private String userPassword;            //用户登录密码
+	@ApiModelProperty(value = "用户类型")
 	private Integer userType;               //用户类型
+	@ApiModelProperty(value = "平台id")
 	private Long flatID;                    //平台ID
+	@ApiModelProperty(value = "用户姓名")
 	private String userName;                //用户姓名
+	@ApiModelProperty(value = "weChat号码")
 	private String weChat;                  //weChat号码
+	@ApiModelProperty(value = "QQ号码")
 	private String QQ;                      //QQ号码
+	@ApiModelProperty(value = "微博账号")
 	private String weibo;                   //微博账号
+	@ApiModelProperty(value = "百度账号")
 	private String baidu;                   //百度账号
+	@ApiModelProperty(value = "是否激活")
 	private int activated;                  //是否激活
 	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
 	private Date creationDate;

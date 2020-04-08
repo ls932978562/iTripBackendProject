@@ -1,8 +1,10 @@
 package cn.ekgc.itrip.transport;
 
+import cn.ekgc.itrip.base.pojo.vo.Page;
 import cn.ekgc.itrip.pojo.entity.Hotel;
 import cn.ekgc.itrip.pojo.vo.HotCityVo;
 import cn.ekgc.itrip.pojo.vo.HotelVo;
+import cn.ekgc.itrip.pojo.vo.SearchHotelVO;
 import cn.ekgc.itrip.pojo.vo.ValidateRoomStoreVO;
 import cn.ekgc.itrip.service.HotelService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +42,19 @@ public class HotelTransportImpl implements HotelTransport {
 	@PostMapping("/videodesc")
 	public Hotel getvideodesc(@RequestParam Long hotelId) throws Exception {
 		return hotelService.getvideodesc(hotelId);
+	}
+
+
+	/**
+	 * <b>查询酒店分页</b>
+	 * @param searchHotelVO
+	 * @return
+	 * @throws Exception
+	 */
+	@PostMapping("/search")
+	public Page<HotelVo> searchHotelListByQuery(@RequestBody SearchHotelVO searchHotelVO) throws Exception {
+		Page<HotelVo> page = hotelService.searchHotelListByQuery(searchHotelVO);
+		return page;
 	}
 
 }

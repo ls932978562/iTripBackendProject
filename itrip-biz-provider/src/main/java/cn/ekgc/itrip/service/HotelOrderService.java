@@ -74,4 +74,11 @@ public interface HotelOrderService {
 	 * @throws Exception
 	 */
 	int updateOrderByNo(String tradeNo)throws Exception;
+
+	/**
+	 * <b>修改交易状态</b>
+	 * @param orderId
+	 * @throws Exception
+	 */
+	int updateOrderById(Long orderId)throws Exception;
 }

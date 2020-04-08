@@ -95,8 +95,18 @@ public class HotelOrderTransportImpl implements HotelOrderTransport{
 	 * @param tradeNo
 	 * @throws Exception
 	 */
-	@PostMapping("/updateOrderStatus")
+	@PostMapping("/updateOrder")
 	public int updateOrderByNo(@RequestParam String tradeNo) throws Exception {
 		return hotelOrderService.updateOrderByNo(tradeNo);
+	}
+
+	/**
+	 * <b>修改交易状态</b>
+	 * @param orderId
+	 * @throws Exception
+	 */
+	@PostMapping("/updateOrderStatus")
+	public int updateOrderById(@RequestParam Long orderId) throws Exception {
+		return hotelOrderService.updateOrderById(orderId);
 	}
 }

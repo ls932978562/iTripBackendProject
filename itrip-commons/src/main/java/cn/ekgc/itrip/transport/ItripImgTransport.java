@@ -26,4 +26,13 @@ public interface ItripImgTransport {
 	 */
 	@PostMapping("/queryImg")
 	List<ItripImage> getHotelImg(@RequestBody ItripImage query)throws Exception;
+
+	/**
+	 * <b>保存图片</b>
+	 * @param itripImage
+	 * @return
+	 * @throws Exception
+	 */
+	@PostMapping("/save")
+	void saveImage(@RequestBody ItripImage itripImage)throws Exception;
 }

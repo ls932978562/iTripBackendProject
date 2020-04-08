@@ -1,6 +1,8 @@
 package cn.ekgc.itrip.pojo.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -11,14 +13,22 @@ import java.util.Date;
  * @version 1.0.0
  * @since 1.0.0
  */
+@ApiModel(value = "字典实体类 LabelDic",description = "名称")
 public class LabelDic implements Serializable {
 	private static final long serialVersionUID = 1L;
+	@ApiModelProperty(value = "主键")
 	private Long id;                    //主键
+	@ApiModelProperty(value = "标签名称")
 	private String name;                //标签名key
+	@ApiModelProperty(value = "value值")
 	private String value;               //value值
+	@ApiModelProperty(value = "描述")
 	private String description;         //描述
+	@ApiModelProperty(value = "父级")
 	private Long parentId;              //父级
+	@ApiModelProperty(value = "酒店Id")
 	private Long hotelId;               //酒店ID
+	@ApiModelProperty(value = "标签图标")
 	private String pic;                 //标签图片地址
 	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
 	private Date creationDate;

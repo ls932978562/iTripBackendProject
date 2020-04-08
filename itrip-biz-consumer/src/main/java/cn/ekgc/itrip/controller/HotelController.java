@@ -8,6 +8,8 @@ import cn.ekgc.itrip.pojo.entity.AreaDic;
 import cn.ekgc.itrip.pojo.entity.Hotel;
 import cn.ekgc.itrip.pojo.entity.ItripImage;
 import cn.ekgc.itrip.pojo.entity.LabelDic;
+import cn.ekgc.itrip.pojo.vo.HotCityVo;
+import cn.ekgc.itrip.pojo.vo.HotelVo;
 import cn.ekgc.itrip.pojo.vo.SearchDetailsHotelVo;
 import cn.ekgc.itrip.transport.AreaDicTransport;
 import cn.ekgc.itrip.transport.HotelTransport;
@@ -141,12 +143,26 @@ public class HotelController extends BaseController {
 		//根据酒店Id查询酒店图片
 		ItripImage itripImage = new ItripImage();
 		itripImage.setTargetId(targetId);
-		itripImage.setType(String.valueOf(ImgTypeEnum.IMG_TYPE_HOTEL.getCode()));
+		itripImage.setType(ImgTypeEnum.IMG_TYPE_HOTEL.getCode());
 		//根据ItripImage对象查询酒店图片
 		List<ItripImage> itripImageList = itripImgTransport.getHotelImg(itripImage);
 		return ResponseDto.success(itripImageList);
 	}
 
+
+	/**
+	 * <b>查询商圈</b>
+	 * @param cityId
+	 * @return
+	 * @throws Exception
+	 */
+	@GetMapping(value = "/querytradearea/{cityId}")
+	public ResponseDto<Object> queryTradeArea(@PathVariable("cityId") Long cityId)throws Exception{
+		HotCityVo hotCityVo = new HotCityVo();
+		hotCityVo.setCityId(cityId.intValue());
+		List<HotelVo> hotelVoList = hotelTransport.searchHotelListByHotCity(hotCityVo);
+		return  ResponseDto.success(hotelVoList);
+	}
 }
 
 

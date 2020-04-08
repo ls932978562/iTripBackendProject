@@ -33,7 +33,7 @@ public interface HotelCommentDao {
 	 * @return
 	 * @throws Exception
 	 */
-	List<HotelComment> queryHotelCommentList(HotelComment hotelComment)throws Exception;
+	List<ListCommentVO> queryHotelCommentList(HotelComment hotelComment)throws Exception;
 
 
 	/**
@@ -53,4 +53,14 @@ public interface HotelCommentDao {
 	 * @throws Exception
 	 */
 	int saveHotelComment(HotelComment comment)throws Exception;
+
+
+	/**
+	 *
+	 * <b>查询订单</b>
+	 * @param hotelComment
+	 * @return
+	 * @throws Exception
+	 */
+	List<HotelComment> findHotelComment(HotelComment hotelComment)throws Exception;
 }

@@ -183,6 +183,12 @@ public class HotelOrderController extends BaseController {
 
 	}
 
+	/**
+	 * <b>根据ID查询订单</b>
+	 * @param orderId
+	 * @return
+	 * @throws Exception
+	 */
 	@GetMapping("/queryOrderById/{orderId}")
 	public ResponseDto<Object> queryOrderById(@PathVariable("orderId") Long orderId)throws Exception{
 		ModifyHotelOrderVO modifyHotelOrderVO = new ModifyHotelOrderVO();

@@ -167,11 +167,13 @@
 		<set>
 			<trim suffixOverrides=",">
 				<if test="tradeNo != null">orderStatus=#{tradeStatus} ,</if>
+				<if test="id != null">orderStatus=#{tradeStatus} ,</if>
 			</trim>
 		</set>
 		<where>
 			<trim suffixOverrides="and">
 				<if test="tradeNo != null">tradeNo=#{tradeNo} and </if>
+				<if test="id != null">id=#{id} and </if>
 			</trim>
 		</where>
 	</update>

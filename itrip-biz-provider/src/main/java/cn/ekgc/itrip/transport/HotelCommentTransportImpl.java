@@ -46,7 +46,7 @@ public class HotelCommentTransportImpl implements HotelCommentTransport {
 	 * @throws Exception
 	 */
 	@PostMapping("/commentlist")
-	public Page<HotelComment> getcommentlist(@RequestBody SearchCommentVO searchCommentVO) throws Exception {
+	public Page<ListCommentVO> getcommentlist(@RequestBody SearchCommentVO searchCommentVO) throws Exception {
 		return hotelCommentService.getcommentlist(searchCommentVO);
 	}
 
@@ -72,6 +72,19 @@ public class HotelCommentTransportImpl implements HotelCommentTransport {
 	@PostMapping("/addComment")
 	public int addHotelComment(@RequestBody HotelComment comment) throws Exception {
 		return hotelCommentService.addHotelComment(comment);
+	}
+
+
+	/**
+	 *
+	 * <b>查询订单</b>
+	 * @param hotelComment
+	 * @return
+	 * @throws Exception
+	 */
+	@PostMapping("/getcommentlist")
+	public List<HotelComment> getHotelComment(@RequestBody HotelComment hotelComment) throws Exception {
+		return hotelCommentService.getHotelComment(hotelComment);
 	}
 
 

@@ -33,4 +33,17 @@ public class ItripImgTransportImpl implements ItripImgTransport{
 	public List<ItripImage> getHotelImg(@RequestBody ItripImage query) throws Exception {
 		return itripImgService.getHotelImg(query);
 	}
+
+
+
+	/**
+	 * <b>保存图片</b>
+	 * @param itripImage
+	 * @return
+	 * @throws Exception
+	 */
+	@PostMapping("/save")
+	public void saveImage(@RequestBody ItripImage itripImage) throws Exception {
+		itripImgService.saveImage(itripImage);
+	}
 }

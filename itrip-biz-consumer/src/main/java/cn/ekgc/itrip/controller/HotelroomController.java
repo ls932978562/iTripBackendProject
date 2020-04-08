@@ -82,7 +82,7 @@ public class HotelroomController extends BaseController {
 		//封装查询对象
 		ItripImage query = new ItripImage();
 		query.setTargetId(targetId);
-		query.setType(String.valueOf(ImgTypeEnum.IMG_TYPE_HOTEL.getCode()));
+		query.setType(ImgTypeEnum.IMG_TYPE_HOTEL.getCode());
 		List<ItripImage> itripImageList = itripImgTransport.getHotelImg(query);
 		return ResponseDto.success(itripImageList);
 	}

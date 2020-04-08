@@ -3,6 +3,7 @@ package cn.ekgc.itrip.transport;
 import cn.ekgc.itrip.base.pojo.vo.Page;
 import cn.ekgc.itrip.base.pojo.vo.ResponseDto;
 import cn.ekgc.itrip.pojo.entity.HotelComment;
+import cn.ekgc.itrip.pojo.entity.HotelOrder;
 import cn.ekgc.itrip.pojo.vo.ListCommentVO;
 import cn.ekgc.itrip.pojo.vo.ScoreCommentVO;
 import cn.ekgc.itrip.pojo.vo.SearchCommentVO;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.xml.stream.events.Comment;
 import java.util.List;
 import java.util.Map;
 
@@ -41,7 +43,7 @@ public interface HotelCommentTransport {
 	 * @throws Exception
 	 */
 	@PostMapping("/commentlist")
-	Page<HotelComment> getcommentlist(@RequestBody SearchCommentVO searchCommentVO)throws Exception;
+	Page<ListCommentVO> getcommentlist(@RequestBody SearchCommentVO searchCommentVO)throws Exception;
 
 	/**
 	 * <b>根据酒店id查询各类评论数量</b>
@@ -61,4 +63,14 @@ public interface HotelCommentTransport {
 	 */
 	@PostMapping("/addComment")
 	int addHotelComment(@RequestBody HotelComment comment)throws Exception;
+
+	/**
+	 *
+	 * <b>查询订单</b>
+	 * @param hotelComment
+	 * @return
+	 * @throws Exception
+	 */
+	@PostMapping("/getcommentlist")
+	List<HotelComment> getHotelComment(@RequestBody HotelComment hotelComment)throws Exception;
 }

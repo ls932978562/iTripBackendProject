@@ -24,9 +24,40 @@
 		</where>
 	</select>
 
+	<insert id="saveImage" parameterType="ItripImage">
+		insert into
+			itrip_image(
+				<trim suffixOverrides=",">
+					<if test="id != null">id ,</if>
+					<if test="type != null">type ,</if>
+					<if test="targetId != null">targetId ,</if>
+					<if test="position != null">position ,</if>
+					<if test="imgUrl != null">imgUrl ,</if>
+					<if test="creationDate != null">creationDate ,</if>
+					<if test="createdBy != null">createdBy ,</if>
+					<if test="modifyDate != null">modifyDate ,</if>
+					<if test="modifiedBy != null">modifiedBy ,</if>
+				</trim>
+
+			)values(
+
+			<trim suffixOverrides=",">
+				<if test="id != null">#{id} ,</if>
+				<if test="type != null">#{type} ,</if>
+				<if test="targetId != null">#{targetId} ,</if>
+				<if test="position != null">#{position} ,</if>
+				<if test="imgUrl != null">#{imgUrl} ,</if>
+				<if test="creationDate != null">#{creationDate} ,</if>
+				<if test="createdBy != null">#{createdBy} ,</if>
+				<if test="modifyDate != null">#{modifyDate} ,</if>
+				<if test="modifiedBy != null">=#{modifiedBy} ,</if>
+			</trim>
+			)
+	</insert>
+
 	<resultMap id="itripImgMap" type="ItripImage">
 		<id property="id" javaType="java.lang.Long" column="id"/>
-		<result property="type" javaType="java.lang.String" column="type"/>
+		<result property="type" javaType="java.lang.Integer" column="type"/>
 		<result property="targetId" javaType="java.lang.Long" column="targetId"/>
 		<result property="position" javaType="java.lang.Integer" column="position"/>
 		<result property="imgUrl" javaType="java.lang.String" column="imgUrl"/>

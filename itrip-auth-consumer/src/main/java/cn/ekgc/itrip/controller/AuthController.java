@@ -11,6 +11,7 @@ import cn.ekgc.itrip.util.CheckFormatUtil;
 import cn.ekgc.itrip.util.MD5Util;
 import cn.ekgc.itrip.util.JWTUtil;
 import cn.ekgc.itrip.util.constant.SystemConstant;
+import io.swagger.annotations.*;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +25,7 @@ import java.util.List;
  * @version 1.0.0
  * @since 1.0.0
  */
+@Api(value = "用户信息交互接口",tags = "用户信息交互接口")
 @RestController("authController")
 @RequestMapping("/auth/api")
 public class AuthController extends BaseController {
@@ -37,6 +39,13 @@ public class AuthController extends BaseController {
 	 * @return
 	 * @throws Exception
 	 */
+	@ApiOperation(value = "查询用户是否存在",produces = "application/json",httpMethod = "GET")
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "name",value = "查询用户")
+	})
+	@ApiResponses({
+			@ApiResponse(code = 200,message = "响应成功")
+	})
 	@GetMapping(value = "/ckusr")
 	public ResponseDto<Object> checkUserEmailForRegistry(String name) throws Exception{
 		//校验用户输入的格式是否正确
@@ -61,6 +70,13 @@ public class AuthController extends BaseController {
 	 * @return
 	 * @throws Exception
 	 */
+	@ApiOperation(value = "注册用户-邮箱",produces = "application/json",httpMethod = "POST")
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "UserVo",value = "注册用户")
+	})
+	@ApiResponses({
+			@ApiResponse(code = 200,message = "响应成功")
+	})
 	@PostMapping(value = "/doregister")
 	public ResponseDto<Object> registryNewUserByMail(@RequestBody UserVo userVo)throws Exception{
 		//进行校验用户输入的格式是否正确
@@ -97,6 +113,13 @@ public class AuthController extends BaseController {
 	 * @return
 	 * @throws Exception
 	 */
+	@ApiOperation(value = "注册用户-手机",produces = "application/json",httpMethod = "POST")
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "UserVo",value = "注册用户")
+	})
+	@ApiResponses({
+			@ApiResponse(code = 200,message = "响应成功")
+	})
 	@PostMapping("/registerbyphone")
 	public ResponseDto<Object> registryNewUserByPhone(@RequestBody UserVo userVo)throws Exception{
 		//进行校验用户输入的格式是否正确
@@ -136,6 +159,14 @@ public class AuthController extends BaseController {
 	 * @return
 	 * @throws Exception
 	 */
+	@ApiOperation(value = "激活用户-邮箱",produces = "application/json",httpMethod = "PUT")
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "user",value = "用户账号"),
+			@ApiImplicitParam(name = "code",value = "用户激活码")
+	})
+	@ApiResponses({
+			@ApiResponse(code = 200,message = "响应成功")
+	})
 	@PutMapping("/activate")
 	public ResponseDto<Object> userActivateByMail(String user,String code)throws Exception{
 		//检查用户是否输入正确
@@ -162,6 +193,14 @@ public class AuthController extends BaseController {
 	 * @return
 	 * @throws Exception
 	 */
+	@ApiOperation(value = "激活用户-手机",produces = "application/json",httpMethod = "PUT")
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "user",value = "用户账号"),
+			@ApiImplicitParam(name = "code",value = "用户激活码")
+	})
+	@ApiResponses({
+			@ApiResponse(code = 200,message = "响应成功")
+	})
 	@PutMapping("/validatephone")
 	public ResponseDto<Object> userActivateByPhone(String user,String code)throws Exception{
 		//检查用户是否输入正确
@@ -189,6 +228,14 @@ public class AuthController extends BaseController {
 	 * @return
 	 * @throws Exception
 	 */
+	@ApiOperation(value = "激活用户-邮箱",produces = "application/json",httpMethod = "POST")
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "name",value = "用户账号"),
+			@ApiImplicitParam(name = "password",value = "用户密码")
+	})
+	@ApiResponses({
+			@ApiResponse(code = 200,message = "响应成功")
+	})
 	@PostMapping("/dologin")
 	public ResponseDto<Object> userLogin(String name,String password)throws Exception{
 		if(name != null && !"".equals(name.trim()) && password != null && !"".equals(password.trim())){

@@ -5,10 +5,7 @@ import cn.ekgc.itrip.pojo.entity.HotelOrder;
 import cn.ekgc.itrip.pojo.entity.ItripUserLinkUser;
 import cn.ekgc.itrip.pojo.vo.*;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -85,6 +82,15 @@ public interface HotelOrderTransport {
 	 * @param tradeNo
 	 * @throws Exception
 	 */
-	@PostMapping("/updateOrderStatus")
+	@PostMapping("/updateOrder")
 	int updateOrderByNo(@RequestParam String tradeNo)throws Exception;
+
+
+	/**
+	 * <b>修改交易状态</b>
+	 * @param orderId
+	 * @throws Exception
+	 */
+	@PostMapping("/updateOrderStatus")
+	int updateOrderById(@RequestParam Long orderId)throws Exception;
 }

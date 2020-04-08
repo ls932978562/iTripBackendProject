@@ -1,6 +1,8 @@
 package cn.ekgc.itrip.pojo.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -11,22 +13,38 @@ import java.util.Date;
  * @version 1.0.0
  * @since 1.0.0
  */
+@ApiModel(value = "酒店评论HotelComment")
 public class HotelComment implements Serializable {
 	private static final long serialVersionUID = 1L;
+	@ApiModelProperty(value = "主键")
 	private Long id;
+	@ApiModelProperty(value = "酒店Id")
 	private Long hotelId;
+	@ApiModelProperty(value = "产品Id")
 	private Long productId;
+	@ApiModelProperty(value = "订单Id")
 	private Long orderId;
+	@ApiModelProperty(value = "产品类型")
 	private Integer productType;            //商品类型 0—旅游 1-酒店产品 2-机票产品
+	@ApiModelProperty(value = "评论内容")
 	private String content;                 //评论内容
+	@ApiModelProperty(value = "用户ID")
 	private Long userId;                    //用户编号
+	@ApiModelProperty(value = "是否包含图片")
 	private Integer isHavingImg;            //是否包含图片
+	@ApiModelProperty(value = "位置评分")
 	private Integer positionScore;          //位置评分
+	@ApiModelProperty(value = "设施评分")
 	private Integer facilitiesScore;        //设施评分
+	@ApiModelProperty(value = "服务评分")
 	private Integer serviceScore;           //服务评分
+	@ApiModelProperty(value = "卫生评分")
 	private Integer hygieneScore;           //卫生评分
+	@ApiModelProperty(value = "综合评分")
 	private Integer score;                  //综合评分
+	@ApiModelProperty(value = "出游类型")
 	private String tripMode;                //出游类型
+	@ApiModelProperty(value = "是否满意")
 	private Integer isOk;                   //是否满意
 	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
 	private Date creationDate;

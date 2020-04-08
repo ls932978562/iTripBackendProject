@@ -1,6 +1,8 @@
 package cn.ekgc.itrip.pojo.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -11,24 +13,41 @@ import java.util.Date;
  * @version 1.0.0
  * @since 1.0.0
  */
+@ApiModel(value = "酒店信息Hotel")
 public class Hotel implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	@ApiModelProperty(value = "主键")
 	private Long id;                        //主键
+	@ApiModelProperty(value = "酒店名称")
 	private String hotelName;               //酒店名称
+	@ApiModelProperty(value = "国家Id")
 	private Long countryId;                 //国家ID
+	@ApiModelProperty(value = "省份Id")
 	private Long provinceId;                //省份ID
+	@ApiModelProperty(value = "城市id")
 	private Long cityId;                    //城市ID
+	@ApiModelProperty(value = "酒店地址")
 	private String address;                 //酒店地址
+	@ApiModelProperty(value = "酒店细节")
 	private String details;                 //酒店细节介绍
+	@ApiModelProperty(value = "酒店设施")
 	private String facilities;              //酒店设施
+	@ApiModelProperty(value = "酒店政策")
 	private String hotelPolicy;             //酒店政策
+	@ApiModelProperty(value = "酒店类型")
 	private Integer hotelType;              //酒店类型 1-国内 2-国际
+	@ApiModelProperty(value = "酒店级别")
 	private Integer hotelLevel;             //酒店级别 1-经济酒店 2-二星 3-三星 4-四星 5-五星
+	@ApiModelProperty(value = "是否是团购酒店")
 	private Integer isGroupPurchase;        //是否是团购酒店
+	@ApiModelProperty(value = "城市名称（冗余字段）")
 	private String redundantCityName;       //城市名称冗余字段
+	@ApiModelProperty(value = "省份名称（冗余字段）")
 	private String redundantProvinceName;   //省名称冗余字段
+	@ApiModelProperty(value = "城市名称（冗余字段）")
 	private String redundantCountryName;    //城市名称冗余字段
+	@ApiModelProperty(value = "酒店库存")
 	private Integer redundantHotelStore;    //酒店库存
 	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
 	private Date creationDate;

@@ -10,15 +10,21 @@ import cn.ekgc.itrip.pojo.vo.ListCommentVO;
 import cn.ekgc.itrip.pojo.vo.ScoreCommentVO;
 import cn.ekgc.itrip.pojo.vo.SearchCommentVO;
 import cn.ekgc.itrip.transport.*;
+import org.apache.commons.io.IOUtils;
+import org.omg.CORBA.COMM_FAILURE;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.annotation.Order;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.Cookie;
+import javax.xml.stream.events.Comment;
 import javax.xml.ws.Response;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.*;
 
 /**
  * <b>爱旅行-酒店评论控制器</b>
@@ -40,6 +46,8 @@ public class HotelCommentController extends BaseController {
 	private LabelDicTransport labelDicTransport;
 	@Autowired
 	private UserTransport userTransport;
+	@Autowired
+	private HotelOrderTransport hotelOrderTransport;
 	/**
 	 * <b> 据酒店id查询酒店平均分</b>
 	 * @param hotelId
@@ -73,7 +81,7 @@ public class HotelCommentController extends BaseController {
 		}
 
 		//根据查询条件进行查询评论列表
-		Page<HotelComment> page = hotelCommentTransport.getcommentlist(searchCommentVO);
+		Page<ListCommentVO> page = hotelCommentTransport.getcommentlist(searchCommentVO);
 		return ResponseDto.success(page);
 	}
 
@@ -135,10 +143,13 @@ public class HotelCommentController extends BaseController {
 	 */
 	@GetMapping("/getimg/{targetId}")
 	public ResponseDto<Object> getCommentImage(@PathVariable("targetId") Long targetId)throws Exception{
+
+
+
 		//封装查询对象
 		ItripImage query = new ItripImage();
 		query.setTargetId(targetId);
-		query.setType(String.valueOf(ImgTypeEnum.IMG_TYPE_COMMENT.getCode()));
+		query.setType(ImgTypeEnum.IMG_TYPE_COMMENT.getCode());
 		List<ItripImage> itripImageList = itripImgTransport.getHotelImg(query);
 		return ResponseDto.success(itripImageList);
 	}
@@ -199,7 +210,6 @@ public class HotelCommentController extends BaseController {
 		query.setUserCode(userCode);
 		List<User> userList = userTransport.getUserByQuery(query);
 
-
 		comment.setUserId(userList.get(0).getId());
 		comment.setIsHavingImg(itripAddCommentVO.getIsHavingImg());
 		comment.setPositionScore(itripAddCommentVO.getPositionScore());
@@ -214,9 +224,80 @@ public class HotelCommentController extends BaseController {
 
 		//进行添加评论
 		int insertCount = hotelCommentTransport.addHotelComment(comment);
+
+
+		//根据订单id查询commentId
+		HotelComment hotelComment = new HotelComment();
+		hotelComment.setOrderId(itripAddCommentVO.getOrderId());
+		List<HotelComment> commentList = hotelCommentTransport.getHotelComment(hotelComment);
+		//提取图片信息
+		for(int i = 0 ; i < itripAddCommentVO.getItripImages().length ; i++){
+			ItripImage itripImage = new ItripImage();
+			itripImage.setType(ImgTypeEnum.IMG_TYPE_COMMENT.getCode());
+			itripImage.setTargetId(commentList.get(0).getId());
+
+			itripImage.setPosition(i + 1);
+			itripImage.setImgUrl(itripAddCommentVO.getItripImages()[i].getImgUrl());
+			itripImage.setCreationDate(new Date());
+			itripImage.setCreatedBy(userList.get(0).getId());
+			//将图片信息进行保存
+			itripImgTransport.saveImage(itripImage);
+		}
+
 		if(insertCount > 0){
-			return ResponseDto.success("评论成功");
+			//修改订单状态为已点评
+			int status = hotelOrderTransport.updateOrderById(itripAddCommentVO.getOrderId());
+			if(status > 0){
+				return ResponseDto.success();
+			}
+
 		}
 		return ResponseDto.failure("评论失败");
+	}
+
+
+	/**
+	 * <b>图片上传</b>
+	 * @param multipartFile
+	 * @return
+	 * @throws Exception
+	 */
+	@PostMapping("/upload")
+	public ResponseDto<Object> upLoadPicture(@RequestPart("file") MultipartFile multipartFile)throws Exception{
+		List<String> imageList = new ArrayList<String>();
+		//获取文件名
+		String realName = multipartFile.getOriginalFilename();
+		//对文件进行重命名,首先截取文件后缀,在使用时间毫秒数加上文件后缀
+		String suffix = realName.substring(realName.lastIndexOf("."), realName.length());
+		//形成新的文件名
+		String fileName = System.currentTimeMillis() + suffix;
+
+		//通过MultipartFile对象获得输入流
+		InputStream in = multipartFile.getInputStream();
+		//获得文件上传的输入流之后，就可以读取输入流中的内容，写到对应的输出流中去
+//		String path = "D:\\LS_graduation_project\\picture";
+
+		String path = "D:/LS_graduation_project/nginx-1.16.1/view/itrip/static/image";
+		File fileFolder = new File(path);
+		if(!fileFolder.exists()){
+			fileFolder.mkdirs();
+		}
+
+		//将文件路径及名字保存到数据库中
+		String imgUrl = path + File.separator + fileName;
+		imageList.add("http://localhost/static/image/" + fileName);
+
+		
+
+		//获得输出流文件对象
+		File file = new File(imgUrl + "_200x200.jpg");
+		//创建输出流对想
+		OutputStream out = new FileOutputStream(file);
+
+		IOUtils.copy(in, out);
+		in.close();
+		out.close();
+
+		return ResponseDto.success(imageList);
 	}
 }

@@ -1,6 +1,8 @@
 package cn.ekgc.itrip.pojo.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -10,19 +12,31 @@ import java.util.Date;
  * @version 1.0.0
  * @since 1.0.0
  */
+@ApiModel(value = "酒店房间Hotelroom")
 public class Hotelroom implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	@ApiModelProperty(value = "主键")
 	private Long id;
+	@ApiModelProperty(value = "酒店ID")
 	private Long hotelId;
+	@ApiModelProperty(value = "房间名字")
 	private String roomTitle;                   //房间名称
+	@ApiModelProperty(value = "房间价格")
 	private Double roomPrice;                   //房间价格
+	@ApiModelProperty(value = "床型")
 	private Long roomBedTypeId;                 //酒店床型
+	@ApiModelProperty(value = "早饭")
 	private Integer isHavingBreakfast;          //早餐
+	@ApiModelProperty(value = "支付方式")
 	private Integer payType;                    //支付方式  1-在线 2-到店 3-任意
+	@ApiModelProperty(value = "是否满意")
 	private Double satisfaction;                //是否满意
+	@ApiModelProperty(value = "是否可预订")
 	private Integer isBook;                     //是否可预订 0-不可以 1-可以
+	@ApiModelProperty(value = "是否可取消")
 	private Integer isCancel;                   //是否可取消 0-不可以 1-可以
+	@ApiModelProperty(value = "是否及时响应")
 	private Integer isTimelyResponse;           //是否及时响应 0-不可以 1-可以
 	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
 	private Date creationDate;

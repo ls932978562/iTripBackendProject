@@ -1,36 +1,61 @@
 package cn.ekgc.itrip.pojo.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+@ApiModel(value = "酒店订单HotelOrder")
 public class HotelOrder implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    @ApiModelProperty(value = "主键")
     private Long id;
+    @ApiModelProperty(value = "用户id")
     private Long userId;
+    @ApiModelProperty(value = "订单类型")
     private Integer orderType;
+    @ApiModelProperty(value = "订单编号")
     private String orderNo;
+    @ApiModelProperty(value = "交易号")
     private String tradeNo;
+    @ApiModelProperty(value = "酒店Id")
     private Long hotelId;
+    @ApiModelProperty(value = "酒店名字")
     private String hotelName;
+    @ApiModelProperty(value = "房间Id")
     private Long roomId;
+    @ApiModelProperty(value = "预定间数")
     private Integer count;
+    @ApiModelProperty(value = "预定天数")
     private Integer bookingDays;
+    @ApiModelProperty(value = "入住日期")
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private Date checkInDate;
+    @ApiModelProperty(value = "离开日期")
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private Date checkOutDate;
+    @ApiModelProperty(value = "订单状态")
     private Integer orderStatus;
+    @ApiModelProperty(value = "支付金额")
     private Double payAmount;
+    @ApiModelProperty(value = "支付类型")
     private Integer payType;
+    @ApiModelProperty(value = "预留电话")
     private String noticePhone;
+    @ApiModelProperty(value = "预留邮箱")
     private String noticeEmail;
+    @ApiModelProperty(value = "特殊要求")
     private String specialRequirement;
+    @ApiModelProperty(value = "是否需要发票")
     private Integer isNeedInvoice;
+    @ApiModelProperty(value = "发票类型")
     private Integer invoiceType;
+    @ApiModelProperty(value = "发票抬头")
     private String invoiceHead;
+    @ApiModelProperty(value = "联系人姓名")
     private String linkUserName;
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private Date creationDate;
@@ -38,6 +63,7 @@ public class HotelOrder implements Serializable {
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private Date modifyDate;
     private Long modifiedBy;
+    @ApiModelProperty(value = "预订平台类型")
     private Integer bookType;
 
     public Long getId() {

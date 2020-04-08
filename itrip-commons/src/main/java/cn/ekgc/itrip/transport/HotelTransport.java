@@ -1,8 +1,10 @@
 package cn.ekgc.itrip.transport;
 
+import cn.ekgc.itrip.base.pojo.vo.Page;
 import cn.ekgc.itrip.pojo.entity.Hotel;
 import cn.ekgc.itrip.pojo.vo.HotCityVo;
 import cn.ekgc.itrip.pojo.vo.HotelVo;
+import cn.ekgc.itrip.pojo.vo.SearchHotelVO;
 import cn.ekgc.itrip.pojo.vo.ValidateRoomStoreVO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -40,4 +42,12 @@ public interface HotelTransport {
 	Hotel getvideodesc(@RequestParam Long hotelId)throws Exception;
 
 
+	/**
+	 * <b>查询酒店分页</b>
+	 * @param searchHotelVO
+	 * @return
+	 * @throws Exception
+	 */
+	@PostMapping("/search")
+	Page<HotelVo> searchHotelListByQuery(@RequestBody SearchHotelVO searchHotelVO)throws Exception;
 }

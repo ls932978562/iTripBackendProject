@@ -1,6 +1,7 @@
 package cn.ekgc.itrip.service;
 
 import cn.ekgc.itrip.pojo.entity.ItripImage;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
@@ -19,4 +20,12 @@ public interface ItripImgService {
 	 * @throws Exception
 	 */
 	List<ItripImage> getHotelImg(ItripImage query)throws Exception;
+
+	/**
+	 * <b>保存图片</b>
+	 * @param itripImage
+	 * @return
+	 * @throws Exception
+	 */
+	void saveImage(ItripImage itripImage)throws Exception;
 }

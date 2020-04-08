@@ -32,7 +32,7 @@ public interface HotelCommentService {
 	 * @return
 	 * @throws Exception
 	 */
-	Page<HotelComment> getcommentlist(SearchCommentVO searchCommentVO)throws Exception;
+	Page<ListCommentVO> getcommentlist(SearchCommentVO searchCommentVO)throws Exception;
 
 	/**
 	 * <b>根据酒店id查询各类评论数量</b>
@@ -51,4 +51,14 @@ public interface HotelCommentService {
 	 * @throws Exception
 	 */
 	int addHotelComment(HotelComment comment)throws Exception;
+
+
+	/**
+	 *
+	 * <b>查询订单</b>
+	 * @param hotelComment
+	 * @return
+	 * @throws Exception
+	 */
+	List<HotelComment> getHotelComment(HotelComment hotelComment)throws Exception;
 }

@@ -283,4 +283,17 @@ public class HotelOrderServiceImpl implements HotelOrderService {
 		map.put("tradeStatus", OrderStatusEnum.ORDER_STATUS_PAYED.getCode());
 		return hotelOrderDao.updateOrderStatus(map);
 	}
+
+
+	/**
+	 * <b>修改交易状态</b>
+	 * @param orderId
+	 * @throws Exception
+	 */
+	public int updateOrderById(Long orderId) throws Exception {
+		Map<String,Object> map = new HashMap<String, Object>();
+		map.put("id", orderId);
+		map.put("tradeStatus", OrderStatusEnum.ORDER_STATUS_PAYED.getCode());
+		return hotelOrderDao.updateOrderStatus(map);
+	}
 }

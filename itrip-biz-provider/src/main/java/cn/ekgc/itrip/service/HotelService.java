@@ -1,8 +1,10 @@
 package cn.ekgc.itrip.service;
 
+import cn.ekgc.itrip.base.pojo.vo.Page;
 import cn.ekgc.itrip.pojo.entity.Hotel;
 import cn.ekgc.itrip.pojo.vo.HotCityVo;
 import cn.ekgc.itrip.pojo.vo.HotelVo;
+import cn.ekgc.itrip.pojo.vo.SearchHotelVO;
 import cn.ekgc.itrip.pojo.vo.ValidateRoomStoreVO;
 
 import java.util.List;
@@ -29,4 +31,11 @@ public interface HotelService {
 	 */
 	Hotel getvideodesc(Long hotelId)throws Exception;
 
+	/**
+	 * <b>查询酒店分页</b>
+	 * @param searchHotelVO
+	 * @return
+	 * @throws Exception
+	 */
+	Page<HotelVo> searchHotelListByQuery(SearchHotelVO searchHotelVO)throws Exception;
 }

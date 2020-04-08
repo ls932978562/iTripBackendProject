@@ -49,7 +49,7 @@ public class HotelCommentServiceImpl implements HotelCommentService {
 		scoreCommentVO.setAvgServiceScore(Float.parseFloat(fnum.format(scoreCommentVO.getAvgServiceScore())));
 		scoreCommentVO.setAvgScore(Float.parseFloat(fnum.format(scoreCommentVO.getAvgScore())));
 
-		return hotelCommentDao.queryHotelScore(hotelComment);
+		return scoreCommentVO;
 	}
 
 	/**
@@ -58,33 +58,29 @@ public class HotelCommentServiceImpl implements HotelCommentService {
 	 * @return
 	 * @throws Exception
 	 */
-	public Page<HotelComment> getcommentlist(SearchCommentVO searchCommentVO) throws Exception {
-		Page<HotelComment> page = new Page<HotelComment>();
+	public Page<ListCommentVO> getcommentlist(SearchCommentVO searchCommentVO) throws Exception {
+		Page<ListCommentVO> page = new Page<ListCommentVO>();
 		//封装查询参数
 		HotelComment hotelComment = new HotelComment();
 		hotelComment.setHotelId(searchCommentVO.getHotelId());
 		hotelComment.setIsHavingImg(searchCommentVO.getIsHavingImg());
 		hotelComment.setIsOk(searchCommentVO.getIsOk());
+
 		//设置分页信息
+
 
 		PageHelper.startPage(searchCommentVO.getPageNo(), searchCommentVO.getPageSize());
 		//直接进行查询
-		List<HotelComment> hotelCommentList = hotelCommentDao.queryHotelCommentList(hotelComment);
+		List<ListCommentVO> hotelCommentList = hotelCommentDao.queryHotelCommentList(hotelComment);
 		//使用pageInfo对结果进行封装
-		PageInfo<HotelComment> pageInfo = new PageInfo<HotelComment>(hotelCommentList);
+		PageInfo<ListCommentVO> pageInfo = new PageInfo<ListCommentVO>(hotelCommentList);
 
-		if(hotelCommentList != null && hotelCommentList.size() > 0){
-			page.setCurPage(searchCommentVO.getPageNo());
-			page.setPageSize(searchCommentVO.getPageSize());
-			page.setRows(hotelCommentList);
-			page.setTotal((int)pageInfo.getTotal());
-			//总页数
-			page.setPageCount(pageInfo.getPages());
-			page.setBeginPos(pageInfo.getStartRow());
+		page.setRows(hotelCommentList);
+		page.setTotal((int)pageInfo.getTotal());
+		//总页数
+		page.setPageCount(pageInfo.getPages());
 
-			return page;
-		}
-		return new Page<HotelComment>();
+		return page;
 	}
 
 	/**
@@ -111,6 +107,19 @@ public class HotelCommentServiceImpl implements HotelCommentService {
 	 */
 	public int addHotelComment(HotelComment comment) throws Exception {
 		return hotelCommentDao.saveHotelComment(comment);
+	}
+
+
+
+	/**
+	 *
+	 * <b>查询订单</b>
+	 * @param hotelComment
+	 * @return
+	 * @throws Exception
+	 */
+	public List<HotelComment> getHotelComment(HotelComment hotelComment) throws Exception {
+		return hotelCommentDao.findHotelComment(hotelComment);
 	}
 
 

@@ -1,6 +1,8 @@
 package cn.ekgc.itrip.pojo.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -11,18 +13,29 @@ import java.util.Date;
  * @version 1.0.0
  * @since 1.0.0
  */
+@ApiModel(value = "区域信息实体类")
 public class AreaDic implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	@ApiModelProperty(value = "主键")
 	private Long id;                    //主键
+	@ApiModelProperty(value = "区域名称")
 	private String name;                //区域名称
+	@ApiModelProperty(value = "区域编号")
 	private String areaNo;              //区域编号
+	@ApiModelProperty(value = "父级编号")
 	private Long parent;                //父级区域
+	@ApiModelProperty(value = "激活状态")
 	private Integer isActivated;        //激活状态 0-未激活 1-已激活
+	@ApiModelProperty(value = "是否是商圈")
 	private Integer isTradingArea;      //是否是商圈
+	@ApiModelProperty(value = "是否是热门城市")
 	private Integer isHot;              //是否是热门城市
+	@ApiModelProperty(value = "区域级别")
 	private Integer level;              //区域级别 0-国家 1-省 2-市 3-县/区
+	@ApiModelProperty(value = "是否是国内")
 	private Integer isChina;            //1-国内 2-国外
+	@ApiModelProperty(value = "拼音")
 	private String pinyin;              //拼音
 	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
 	private Date creationDate;
